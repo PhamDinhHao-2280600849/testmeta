@@ -73,7 +73,7 @@ function CreateModal(props: IProps) {
 
             <Modal
                 show={onshowModalUpdate}
-                onHide={() => handleCloseModal()}
+                onHide={handleCloseModal}
                 size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title>Add new blog</Modal.Title>
