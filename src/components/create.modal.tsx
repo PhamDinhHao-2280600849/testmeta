@@ -8,16 +8,16 @@ import { toast } from 'react-toastify';
 import { mutate } from 'swr';
 
 interface IProps {
-    showModalCreate: boolean;
-    setshowModalCreate: (va: boolean) => void;
+    onshowModalCreate: boolean;
+    onsetshowModalCreate: (va: boolean) => void;
 }
 function CreateModal(props: IProps) {
-    const { showModalCreate, setshowModalCreate } = props;
+    const { onshowModalCreate, onsetshowModalCreate } = props;
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
     const handleSubmit = () => {
-        if(!title||!author||!content){
+        if (!title || !author || !content) {
             toast.error("error create")
             return;
         }
@@ -28,11 +28,11 @@ function CreateModal(props: IProps) {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify({ title,author,content})
+                body: JSON.stringify({ title, author, content })
             })
-            .then(res=>res.json())
-            .then(res=>{
-                if(res){
+            .then(res => res.json())
+            .then(res => {
+                if (res) {
                     toast.success("Create succes");
                     handleCloseModal();
                     mutate("http://localhost:8000/blogs")
@@ -45,7 +45,7 @@ function CreateModal(props: IProps) {
         setTitle("")
         setAuthor("")
         setContent("")
-        setshowModalCreate(false)
+        onsetshowModalCreate(false)
     }
 
 
@@ -59,8 +59,8 @@ function CreateModal(props: IProps) {
 
 
             <Modal
-                show={showModalCreate}
-                onHide={() => handleCloseModal()}
+                show={onshowModalCreate}
+                onHide={handleCloseModal}
                 size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title>Add new blog</Modal.Title>
@@ -86,10 +86,10 @@ function CreateModal(props: IProps) {
                     </Form.Group>
                 </Form></Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleCloseModal()}>
+                    <Button variant="secondary" onClick={handleCloseModal}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmit()}>
+                    <Button variant="primary" onClick={handleSubmit}>
                         Save
                     </Button>
                 </Modal.Footer>

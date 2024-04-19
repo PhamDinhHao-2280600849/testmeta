@@ -1,5 +1,5 @@
 "use client"
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { Table } from 'react-bootstrap';
@@ -13,9 +13,9 @@ interface IProps {
 
 export default function Learn(props: IProps) {
     const { blogs } = props;
-    const [blog,setBlog]=useState<IBlog|null>(null);
-    const [showModalCreate,setshowModalCreate]=useState(false);
-    const [showModalUpdate,setshowModalUpdate]=useState(false);
+    const [blog, setBlog] = useState<IBlog | null>(null);
+    const [showModalCreate, setshowModalCreate] = useState(false);
+    const [showModalUpdate, setshowModalUpdate] = useState(false);
 
     // useEffect(()=>{
     //     const fetchData=async ()=>{
@@ -25,12 +25,16 @@ export default function Learn(props: IProps) {
     //     }
     //     fetchData();
     // },[])
+    const setBlogAndShowUpDate=(item: IBlog)=>{
+        setBlog(item); 
+        setshowModalUpdate(true) 
+    }
 
     return (
 
         <div>
             <div>
-                <button className='btn btn-primary' onClick={()=>setshowModalCreate(true)}> Add new</button>
+                <button className='btn btn-primary' onClick={() => setshowModalCreate(true)}> Add new</button>
             </div>
             <Table bordered hover size='sm'>
                 <thead>
@@ -50,7 +54,7 @@ export default function Learn(props: IProps) {
                                 <td>{item.author}</td>
                                 <td>
                                     <Button>View</Button>
-                                    <Button variant='warning' className='mx-3' onClick={()=>{setBlog(item);setshowModalUpdate(true)}}>Edit</Button>
+                                    <Button variant='warning' className='mx-3' onClick={() => setBlogAndShowUpDate(item)}>Edit</Button>
                                     <Button variant='danger'>Delete</Button>
                                 </td>
                             </tr>
@@ -61,16 +65,16 @@ export default function Learn(props: IProps) {
                 </tbody>
             </Table>
             <CreateModal
-            showModalCreate={showModalCreate}
-            setshowModalCreate={setshowModalCreate}
+                onshowModalCreate = {showModalCreate}
+                onsetshowModalCreate = {setshowModalCreate}
             />
             <UpdateModal
-            showModalUpdate={showModalUpdate}
-            setshowModalUpdate={setshowModalUpdate}
-            blog={blog}
-            setBlog={setBlog}
+                onshowModalUpdate = {showModalUpdate}
+                onsetshowModalUpdate = {setshowModalUpdate}
+                onblog = {blog}
+                onsetBlog = {setBlog}
             />
-            </div>
+        </div>
 
     );
 }

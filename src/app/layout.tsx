@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import React, { useEffect } from 'react';
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "../components/header"
 import Hotnew from "../components/hotnew";
 import Body from "../components/body";
@@ -42,17 +42,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <Leanr
+        <Leanr
            />
-        <ToastContainer/> */}
-        <Header/>
+        <ToastContainer/>
+        {/* <Header/>
         
         <Body/>
         
         <Hotnew/>
         <LinhVuc/>
         <KhachHang images={images}/>
-        <Footer/>
+        <Footer/> */}
 
       </body>
     </html>

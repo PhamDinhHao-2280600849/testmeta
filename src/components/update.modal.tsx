@@ -8,38 +8,38 @@ import { toast } from 'react-toastify';
 import { mutate } from 'swr';
 
 interface IProps {
-    showModalUpdate: boolean;
-    setshowModalUpdate: (va: boolean) => void; 
-    blog: IBlog|null;
-    setBlog:(value :IBlog|null)=>void; 
+    onshowModalUpdate: boolean;
+    onsetshowModalUpdate: (va: boolean) => void; 
+    onblog: IBlog|null;
+    onsetBlog:(value :IBlog|null)=>void; 
 }
 function CreateModal(props: IProps) {
-    const { showModalUpdate, setshowModalUpdate,blog,setBlog } = props;
+    const { onshowModalUpdate, onsetshowModalUpdate,onblog,onsetBlog } = props;
     const [id , setId]=useState(0);
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
     useEffect(()=>{
-        if(blog&&blog.id){
-            setId(blog.id)
-            setAuthor(blog.author)
-            setContent(blog.content)
-            setTitle(blog.title)
+        if(onblog&&onblog.id){
+            setId(onblog.id)
+            setAuthor(onblog.author)
+            setContent(onblog.content)
+            setTitle(onblog.title)
         }
-    },[blog]);
+    },[onblog]);
     const handleSubmit = () => {
-        if(!title||!author||!content){
+        if( !title || !author || !content){
             toast.error("error create")
             return;
         }
-        fetch("http://localhost:8000/blogs/${id}",
+        fetch(`http://localhost:8000/blogs/${id}`,
             {
                 headers: {
                     'Accept': 'application/json,text/plain,*/*',
                     'Content-Type': 'application/json'
                 },
                 method: "PUT",
-                body: JSON.stringify({ title,author,content})
+                body: JSON.stringify({id:id, title:title,author:author,content:content})
             })
             .then(res=>res.json())
             .then(res=>{
@@ -56,9 +56,9 @@ function CreateModal(props: IProps) {
         setTitle("")
         setAuthor("")
         setContent("")
-        setTitle("")
-        setBlog(null)
-        setshowModalUpdate(false)
+        
+        onsetBlog(null)
+        onsetshowModalUpdate(false)
     }
 
 
@@ -72,7 +72,7 @@ function CreateModal(props: IProps) {
 
 
             <Modal
-                show={showModalUpdate}
+                show={onshowModalUpdate}
                 onHide={() => handleCloseModal()}
                 size='lg'>
                 <Modal.Header closeButton>
@@ -99,10 +99,10 @@ function CreateModal(props: IProps) {
                     </Form.Group>
                 </Form></Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleCloseModal()}>
+                    <Button variant="secondary" onClick = {handleCloseModal}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmit()}>
+                    <Button variant="primary" onClick = {handleSubmit}>
                         Save
                     </Button>
                 </Modal.Footer>
