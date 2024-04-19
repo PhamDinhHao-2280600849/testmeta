@@ -21,7 +21,7 @@ function CreateModal(props: IProps) {
     const [content, setContent] = useState("");
     useEffect(()=>{
         if(onblog&&onblog.id){
-            setId(onblog.id)
+            
             setAuthor(onblog.author)
             setContent(onblog.content)
             setTitle(onblog.title)
@@ -32,7 +32,7 @@ function CreateModal(props: IProps) {
             toast.error("error create")
             return;
         }
-        fetch(`http://localhost:8000/blogs/${id}`,
+        fetch(`http://localhost:8000/blogs/${onblog?.id}`,
             {
                 headers: {
                     'Accept': 'application/json,text/plain,*/*',
