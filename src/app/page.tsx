@@ -1,112 +1,402 @@
-import Image from "next/image";
+"use client"
+import React, { useState, useEffect } from 'react';
+// core version + navigation, pagination modules:
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
+
+
+
 
 export default function Home() {
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+
+
+  const handleCountryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedCountry(event.target.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    console.log('Đã chọn quốc gia:', selectedCountry);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+      <div className="Header_wrapper">
+        <img src="https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogobanner.dcf00dbd.png&w=3840&q=75" alt="logo"></img>
+      </div>
+      <div className="landing__content">
+        <div className="Home_container">
+          <form onSubmit={handleSubmit}>
+            <div className="container-content-search">
+              <div className="container-content-input">
+                <input type="text" placeholder="Tìm kiếm doanh nghiệp"></input>
+              </div>
+              <div className="container-content-search__country">
+                <div className="ant-radio-group">
+                  <label className="ant-radio-wrapper">
+                    <input type="radio" value="vi" checked={selectedCountry === "vi"} onChange={handleCountryChange}></input>
+                    <span className="ant-radio-inner"></span>
+                    <span>
+                      <img src="https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo2.fad93aaf.png&w=256&q=75" alt="country1"></img>
+                    </span>
+                  </label>
+                  <label className="ant-radio-wrapper">
+                    <input type="radio" value="ja" checked={selectedCountry === "ja"} onChange={handleCountryChange}></input>
+                    <span className="ant-radio-inner"></span>
+                    <span>
+                      <img src="https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo4.3437b7bc.png&w=256&q=75" alt="country2"></img>
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div className="container-content-search__country-button">
+                <button type="submit" className="btn-search">Tìm kiếm</button>
+              </div>
+            </div>
+          </form>
+          <h3 className='matching_title'> Những Đối Tác Nổi Bật</h3>
+          <div className='title'>
+            <div className='oth-sub-header-home'>
+              <span className='font-index'></span>
+              <div>CÔNG TY TIÊU BIỂU PHÍA </div>
+              <span className='titile-red'>Nhật Bản</span>
+              <span className='font-index'></span>
+
+            </div>
+
+          </div>
+          <div className='company__presentative'>
+            <div className='company__presentative--content'>
+              <div className='company__wrapper'>
+                <div className='row company__container'>
+                  <div className='company__left'>
+                    <div className='company__left--image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/50d945a1c2196cca66dd7706e599f1af'></img>
+                    </div>
+                    <div className='company__left--country'>
+                      <img id='image-left' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.3907871c.png&w=64&q=75'></img>
+                      <img id='image-right' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fctynhat.f204ff5d.png&w=256&q=75' style={{ width: '20%' }} ></img>
+                    </div>
+                    <div className='company__left--button'>
+                      <button className='btn-detail'>Chi Tiết</button>
+                    </div>
+                  </div>
+                  <div className='company__right'>
+                    <div className='company__right--content'>
+                      <p className='text-truncate'><strong>NAKAYAMA CO., LTD</strong></p>
+                      <p className='text-truncate'>Năm Thành Lập : 1948</p>
+                      <p className='text-truncate'>Nhân Viên : 57</p>
+                      <p className='text-truncate'>Vốn Doanh Nghiệp : 2000万円</p>
+                      <p className='text-truncate'>Địa Chỉ : 627-0012 657-1 Sugitani, Mineyama-cho, thành phố Kyotango, tỉnh Kyoto, Nhật Bản.</p>
+                      <p className='text-truncate'>Ngành Nghề : Khác</p>
+                      <p className='text-truncate'>Nhu Cầu : Tìm đối tác Việt Nam</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div className='company__wrapper'>
+                <div className='row company__container'>
+                  <div className='company__left'>
+                    <div className='company__left--image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/50d945a1c2196cca66dd7706e599f1af'></img>
+                    </div>
+                    <div className='company__left--country'>
+                      <img id='image-left' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.3907871c.png&w=64&q=75'></img>
+                      <img id='image-right' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fctynhat.f204ff5d.png&w=256&q=75' style={{ width: '20%' }} ></img>
+                    </div>
+                    <div className='company__left--button'>
+                      <button className='btn-detail'>Chi Tiết</button>
+                    </div>
+                  </div>
+                  <div className='company__right'>
+                    <div className='company__right--content'>
+                      <p className='text-truncate'><strong>NAKAYAMA CO., LTD</strong></p>
+                      <p className='text-truncate'>Năm Thành Lập : 1948</p>
+                      <p className='text-truncate'>Nhân Viên : 57</p>
+                      <p className='text-truncate'>Vốn Doanh Nghiệp : 2000万円</p>
+                      <p className='text-truncate'>Địa Chỉ : 627-0012 657-1 Sugitani, Mineyama-cho, thành phố Kyotango, tỉnh Kyoto, Nhật Bản.</p>
+                      <p className='text-truncate'>Ngành Nghề : Khác</p>
+                      <p className='text-truncate'>Nhu Cầu : Tìm đối tác Việt Nam</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div className='company__wrapper'>
+                <div className='row company__container'>
+                  <div className='company__left'>
+                    <div className='company__left--image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/50d945a1c2196cca66dd7706e599f1af'></img>
+                    </div>
+                    <div className='company__left--country'>
+                      <img id='image-left' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.3907871c.png&w=64&q=75'></img>
+                      <img id='image-right' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fctynhat.f204ff5d.png&w=256&q=75' style={{ width: '20%' }} ></img>
+                    </div>
+                    <div className='company__left--button'>
+                      <button className='btn-detail'>Chi Tiết</button>
+                    </div>
+                  </div>
+                  <div className='company__right'>
+                    <div className='company__right--content'>
+                      <p className='text-truncate'><strong>NAKAYAMA CO., LTD</strong></p>
+                      <p className='text-truncate'>Năm Thành Lập : 1948</p>
+                      <p className='text-truncate'>Nhân Viên : 57</p>
+                      <p className='text-truncate'>Vốn Doanh Nghiệp : 2000万円</p>
+                      <p className='text-truncate'>Địa Chỉ : 627-0012 657-1 Sugitani, Mineyama-cho, thành phố Kyotango, tỉnh Kyoto, Nhật Bản.</p>
+                      <p className='text-truncate'>Ngành Nghề : Khác</p>
+                      <p className='text-truncate'>Nhu Cầu : Tìm đối tác Việt Nam</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div className='company__wrapper'>
+                <div className='row company__container'>
+                  <div className='company__left'>
+                    <div className='company__left--image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/50d945a1c2196cca66dd7706e599f1af'></img>
+                    </div>
+                    <div className='company__left--country'>
+                      <img id='image-left' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.3907871c.png&w=64&q=75'></img>
+                      <img id='image-right' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fctynhat.f204ff5d.png&w=256&q=75' style={{ width: '20%' }} ></img>
+                    </div>
+                    <div className='company__left--button'>
+                      <button className='btn-detail'>Chi Tiết</button>
+                    </div>
+                  </div>
+                  <div className='company__right'>
+                    <div className='company__right--content'>
+                      <p className='text-truncate'><strong>NAKAYAMA CO., LTD</strong></p>
+                      <p className='text-truncate'>Năm Thành Lập : 1948</p>
+                      <p className='text-truncate'>Nhân Viên : 57</p>
+                      <p className='text-truncate'>Vốn Doanh Nghiệp : 2000万円</p>
+                      <p className='text-truncate'>Địa Chỉ : 627-0012 657-1 Sugitani, Mineyama-cho, thành phố Kyotango, tỉnh Kyoto, Nhật Bản.</p>
+                      <p className='text-truncate'>Ngành Nghề : Khác</p>
+                      <p className='text-truncate'>Nhu Cầu : Tìm đối tác Việt Nam</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div className='company__wrapper'>
+                <div className='row company__container'>
+                  <div className='company__left'>
+                    <div className='company__left--image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/50d945a1c2196cca66dd7706e599f1af'></img>
+                    </div>
+                    <div className='company__left--country'>
+                      <img id='image-left' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.3907871c.png&w=64&q=75'></img>
+                      <img id='image-right' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fctynhat.f204ff5d.png&w=256&q=75' style={{ width: '20%' }} ></img>
+                    </div>
+                    <div className='company__left--button'>
+                      <button className='btn-detail'>Chi Tiết</button>
+                    </div>
+                  </div>
+                  <div className='company__right'>
+                    <div className='company__right--content'>
+                      <p className='text-truncate'><strong>NAKAYAMA CO., LTD</strong></p>
+                      <p className='text-truncate'>Năm Thành Lập : 1948</p>
+                      <p className='text-truncate'>Nhân Viên : 57</p>
+                      <p className='text-truncate'>Vốn Doanh Nghiệp : 2000万円</p>
+                      <p className='text-truncate'>Địa Chỉ : 627-0012 657-1 Sugitani, Mineyama-cho, thành phố Kyotango, tỉnh Kyoto, Nhật Bản.</p>
+                      <p className='text-truncate'>Ngành Nghề : Khác</p>
+                      <p className='text-truncate'>Nhu Cầu : Tìm đối tác Việt Nam</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div className='company__wrapper'>
+                <div className='row company__container'>
+                  <div className='company__left'>
+                    <div className='company__left--image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/50d945a1c2196cca66dd7706e599f1af'></img>
+                    </div>
+                    <div className='company__left--country'>
+                      <img id='image-left' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo1.3907871c.png&w=64&q=75'></img>
+                      <img id='image-right' src='https://www.vjp-connect.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fctynhat.f204ff5d.png&w=256&q=75' style={{ width: '20%' }} ></img>
+                    </div>
+                    <div className='company__left--button'>
+                      <button className='btn-detail'>Chi Tiết</button>
+                    </div>
+                  </div>
+                  <div className='company__right'>
+                    <div className='company__right--content'>
+                      <p className='text-truncate'><strong>NAKAYAMA CO., LTD</strong></p>
+                      <p className='text-truncate'>Năm Thành Lập : 1948</p>
+                      <p className='text-truncate'>Nhân Viên : 57</p>
+                      <p className='text-truncate'>Vốn Doanh Nghiệp : 2000万円</p>
+                      <p className='text-truncate'>Địa Chỉ : 627-0012 657-1 Sugitani, Mineyama-cho, thành phố Kyotango, tỉnh Kyoto, Nhật Bản.</p>
+                      <p className='text-truncate'>Ngành Nghề : Khác</p>
+                      <p className='text-truncate'>Nhu Cầu : Tìm đối tác Việt Nam</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='events_matching_container'>
+            <h3 className='matching_title'></h3>
+            <h1 className='title'></h1>
+            <Swiper
+              // install Swiper modules
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              spaceBetween={50}
+              slidesPerView={4}
+              navigation
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+              onSwiper={(swiper) => {}}
+              onSlideChange={() => {}}
+            >
+              <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                <div className='form-content-slider'>
+                  <div className='content-slider-user'>
+                    <div className='content-slider-user-image'>
+                      <img src='https://vjp-connect-upload.s3.ap-southeast-1.amazonaws.com/thangvo.png'></img>
+                    </div>
+                    <div className='slider__expert--name'>
+                      <h3>Tư vấn kinh doanh và CNTT</h3>
+                      <span>( Võ Đức Thắng )</span>
+                    </div>
+                    <div className='content-expert-eye'>
+                      <button>Xem hồ sơ</button>
+                    </div>
+                  </div>
+                </div>
+                </SwiperSlide>
+            </Swiper>
+          </div>
+          <div className='footer' style={{height:'500px'}}></div>
+            
+
+
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
       </div>
     </main>
   );
