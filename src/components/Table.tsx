@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import CreateModal from './create.modal';
+import UpdateModal from './update.modal';
 import { mutate } from "swr"
 interface IProps {
     blogs: IBlog[]
@@ -12,7 +13,9 @@ interface IProps {
 
 export default function Learn(props: IProps) {
     const { blogs } = props;
+    const [blog,setBlog]=useState<IBlog|null>(null);
     const [showModalCreate,setshowModalCreate]=useState(false);
+    const [showModalUpdate,setshowModalUpdate]=useState(false);
 
     // useEffect(()=>{
     //     const fetchData=async ()=>{
@@ -39,15 +42,15 @@ export default function Learn(props: IProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {blogs.map(blog => {
+                    {blogs.map(item => {
                         return (
-                            <tr key={blog.id}>
-                                <td>{blog.id}</td>
-                                <td>{blog.title}</td>
-                                <td>{blog.author}</td>
+                            <tr key={item.id}>
+                                <td>{item.id}</td>
+                                <td>{item.title}</td>
+                                <td>{item.author}</td>
                                 <td>
                                     <Button>View</Button>
-                                    <Button variant='warning' className='mx-3'>Edit</Button>
+                                    <Button variant='warning' className='mx-3' onClick={()=>{setBlog(item);setshowModalUpdate(true)}}>Edit</Button>
                                     <Button variant='danger'>Delete</Button>
                                 </td>
                             </tr>
@@ -60,6 +63,12 @@ export default function Learn(props: IProps) {
             <CreateModal
             showModalCreate={showModalCreate}
             setshowModalCreate={setshowModalCreate}
+            />
+            <UpdateModal
+            showModalUpdate={showModalUpdate}
+            setshowModalUpdate={setshowModalUpdate}
+            blog={blog}
+            setBlog={setBlog}
             />
             </div>
 
