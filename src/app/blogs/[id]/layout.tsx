@@ -4,17 +4,17 @@
 
 
 
-  export default function RootLayout({
+  // export default function RootLayout({
   
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
-    return (
-      <>
-      {children}
-      </>
+  //   children,
+  // }: Readonly<{
+  //   children: React.ReactNode;
+  // }>) {
+  //   return (
+  //     <>
+  //     {children}
+  //     </>
   
-    );
-  }
+  //   );
+  // }
   
