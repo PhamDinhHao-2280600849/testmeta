@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap';
 import CreateModal from './create.modal';
 import UpdateModal from './update.modal';
 import { mutate } from "swr"
+
 interface IProps {
     blogs: IBlog[]
 }
@@ -16,6 +17,25 @@ export default function Learn(props: IProps) {
     const [blog, setBlog] = useState<IBlog | null>(null);
     const [showModalCreate, setshowModalCreate] = useState(false);
     const [showModalUpdate, setshowModalUpdate] = useState(false);
+    const handleDeleteBlog=(id:number)=>{
+        if(confirm(`Do you want to delete this blog (id = ${id})`)){
+            fetch(`http://localhost:8000/blogs/${id}`,{
+                method:"DELETE",
+                headers: {
+                    'Accept': 'application/json,text/plain,*/*',
+                    'Content-Type': 'application/json'
+                },
+                
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res) {
+                    mutate("http://localhost:8000/blogs")
+                }
+            })
+        
+        }
+    }
 
     // useEffect(()=>{
     //     const fetchData=async ()=>{
@@ -25,9 +45,9 @@ export default function Learn(props: IProps) {
     //     }
     //     fetchData();
     // },[])
-    const setBlogAndShowUpDate=(item: IBlog)=>{
-        setBlog(item); 
-        setshowModalUpdate(true) 
+    const setBlogAndShowUpDate = (item: IBlog) => {
+        setBlog(item);
+        setshowModalUpdate(true)
     }
 
     return (
@@ -53,9 +73,11 @@ export default function Learn(props: IProps) {
                                 <td>{item.title}</td>
                                 <td>{item.author}</td>
                                 <td>
-                                    <Button>View</Button>
+                                    
+                                        <Link className='btn btn-primary' href={`/blogs/${item.id}`}>View</Link>
+                                    
                                     <Button variant='warning' className='mx-3' onClick={() => setBlogAndShowUpDate(item)}>Edit</Button>
-                                    <Button variant='danger'>Delete</Button>
+                                    <Button variant='danger' onClick={()=>handleDeleteBlog(item.id)}>Delete</Button>
                                 </td>
                             </tr>
                         )
@@ -65,14 +87,14 @@ export default function Learn(props: IProps) {
                 </tbody>
             </Table>
             <CreateModal
-                onshowModalCreate = {showModalCreate}
-                onsetshowModalCreate = {setshowModalCreate}
+                onshowModalCreate={showModalCreate}
+                onsetshowModalCreate={setshowModalCreate}
             />
             <UpdateModal
-                onshowModalUpdate = {showModalUpdate}
-                onsetshowModalUpdate = {setshowModalUpdate}
-                onblog = {blog}
-                onsetBlog = {setBlog}
+                onshowModalUpdate={showModalUpdate}
+                onsetshowModalUpdate={setshowModalUpdate}
+                onblog={blog}
+                onsetBlog={setBlog}
             />
         </div>
 

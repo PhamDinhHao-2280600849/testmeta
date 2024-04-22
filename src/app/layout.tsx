@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -42,9 +43,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Leanr
-           />
-        <ToastContainer/>
+        {children}
+        {/* <Leanr
+           /> */}
+        {/* <ToastContainer/> */}
         {/* <Header/>
         
         <Body/>
